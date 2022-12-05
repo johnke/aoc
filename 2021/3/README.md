@@ -1,3 +1,3 @@
-# Day 2 Commentary
+# Day 3 Commentary
 
-A good excuse to use Python 3.10's new match case!
+Part 2 genuinely tied me up in knots.
