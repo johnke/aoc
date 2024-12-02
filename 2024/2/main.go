@@ -16,49 +16,6 @@ func abs(x int) int {
 	return x
 }
 
-func get_increasing_decreasing(reports [][]int) [][]int {
-	var safe_reports [][]int
-	for _, report := range reports {
-		nums_sorted_a := slices.Clone(report)
-		nums_sorted_d := slices.Clone(report)
-		slices.Sort(nums_sorted_a)
-		slices.Sort(nums_sorted_d)
-		slices.Reverse(nums_sorted_d)
-
-		areEqual_a := slices.Equal(report, nums_sorted_a)
-		areEqual_d := slices.Equal(report, nums_sorted_d)
-		if areEqual_a || areEqual_d {
-			safe_reports = append(safe_reports, report)
-		}
-	}
-	return safe_reports
-}
-
-func get_safe_report(report []int) bool {
-	is_safe := true
-	for i, val := range report {
-		if i < len(report)-1 {
-			diff := abs(val - report[i+1])
-			if diff > 3 || diff < 1 {
-				is_safe = false
-			}
-		}
-	}
-	return is_safe
-}
-
-func part1(reports [][]int) int {
-	safe := 0
-	inc_dec_reports := get_increasing_decreasing(reports)
-	for _, report := range inc_dec_reports {
-		is_safe := get_safe_report(report)
-		if is_safe {
-			safe++
-		}
-	}
-	return safe
-}
-
 func is_ordered(report []int) bool {
 	nums_sorted_a := slices.Clone(report)
 	nums_sorted_d := slices.Clone(report)
@@ -90,6 +47,16 @@ func is_safe(report []int) bool {
 	return false
 }
 
+func part1(reports [][]int) int {
+	var safe_reports [][]int
+	for _, report := range reports {
+		if is_safe(report) {
+			safe_reports = append(safe_reports, report)
+		}
+	}
+	return len(safe_reports)
+}
+
 func part2(reports [][]int) int {
 	var safe_reports [][]int
 	for _, report := range reports {
@@ -102,7 +69,6 @@ func part2(reports [][]int) int {
 			}
 		}
 	}
-
 	return len(safe_reports)
 }
 
